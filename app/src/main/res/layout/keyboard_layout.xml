@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.inputmethodservice.KeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/keyboard_view"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
+    android:orientation="vertical"
     android:background="#DDDDDD"
-    android:keyBackground="@android:drawable/btn_default"
-    android:keyTextColor="#000000" />
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_a"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="A" />
+
+        <Button
+            android:id="@+id/btn_b"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="B" />
+
+        <Button
+            android:id="@+id/btn_c"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="C" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1.2"
+            android:text="DEL" />
+            
+    </LinearLayout>
+</LinearLayout>
