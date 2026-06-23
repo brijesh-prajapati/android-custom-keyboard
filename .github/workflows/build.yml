@@ -28,15 +28,20 @@ jobs:
       - name: Build APK
         run: gradle assembleDebug
 
+      - name: Rename APK for Release
+        run: |
+          mkdir -p output/
+          cp app/build/outputs/apk/debug/app-debug.apk output/Custom-Keyboard.apk
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Custom-Keyboard-APK
-          path: "**/build/outputs/apk/debug/*.apk"
+          path: output/Custom-Keyboard.apk
 
       - name: Upload APK to Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: "**/build/outputs/apk/debug/*.apk"
+          files: output/Custom-Keyboard.apk
           
