@@ -3,17 +3,18 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@android:drawable/sym_def_app_icon"
-        android:label="My GitHub Keyboard"
-        android:supportsRtl="true">
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <service
-            android:name=".MyCustomKeyboard"
-            android:label="My GitHub Keyboard"
+            android:name=".CustomKeyboardService" 
             android:permission="android.permission.BIND_INPUT_METHOD"
             android:exported="true">
             <intent-filter>
-                <action android:name="view.InputMethod" />
+                <action android:name="android.view.InputMethod" />
             </intent-filter>
             <meta-data
                 android:name="android.view.im"
@@ -21,5 +22,5 @@
         </service>
 
     </application>
-</manifest>
 
+</manifest>
