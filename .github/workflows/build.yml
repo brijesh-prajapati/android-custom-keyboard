@@ -3,6 +3,8 @@ name: Build Android APK
 on:
   push:
     branches: [ main, master ]
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -32,4 +34,9 @@ jobs:
           name: Custom-Keyboard-APK
           path: "**/build/outputs/apk/debug/*.apk"
 
+      - name: Upload APK to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "**/build/outputs/apk/debug/*.apk"
           
