@@ -6,7 +6,6 @@
         android:supportsRtl="true"
         android:label="Custom Keyboard">
 
-        <!-- Ye activity app ko screen aur icon degi -->
         <activity 
             android:name=".MainActivity"
             android:exported="true">
@@ -16,9 +15,8 @@
             </intent-filter>
         </activity>
 
-        <!-- Ye background service keyboard ka kaam karegi -->
         <service
-            android:name=".CustomKeyboardService" 
+            android:name=".MyCustomKeyboard" 
             android:permission="android.permission.BIND_INPUT_METHOD"
             android:exported="true">
             <intent-filter>
