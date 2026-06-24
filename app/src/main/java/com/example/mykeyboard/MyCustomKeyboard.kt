@@ -1,15 +1,42 @@
 package com.example.mykeyboard
 
+import android.content.Context
 import android.inputmethodservice.InputMethodService
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.View
 import android.widget.Button
 
 class MyCustomKeyboard : InputMethodService() {
 
+    // Vibration trigger karne ka function
+    private fun triggerVibration() {
+        try {
+            val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                vibratorManager.defaultVibrator
+            } else {
+                @Suppress("DEPRECATION")
+                getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(15, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(15)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     override fun onCreateInputView(): View {
         val view = layoutInflater.inflate(R.layout.keyboard_layout, null)
 
-        // Sahi se click mapping karne ke liye IDs aur unke text ki list
+        // Buttons aur unke characters ka map
         val buttonMap = mapOf(
             R.id.btn_q to "q", R.id.btn_w to "w", R.id.btn_e to "e", R.id.btn_r to "r",
             R.id.btn_t to "t", R.id.btn_y to "y", R.id.btn_u to "u", R.id.btn_i to "i",
@@ -20,15 +47,17 @@ class MyCustomKeyboard : InputMethodService() {
             R.id.btn_n to "n", R.id.btn_m to "m", R.id.btn_space to " "
         )
 
-        // Saare text buttons par click setup
+        // Saare text buttons par click aur vibration set karna
         for ((id, text) in buttonMap) {
             view.findViewById<Button>(id)?.setOnClickListener {
+                triggerVibration()
                 currentInputConnection?.commitText(text, 1)
             }
         }
 
-        // Delete button ka logic
+        // Delete button click aur vibration
         view.findViewById<Button>(R.id.btn_delete)?.setOnClickListener {
+            triggerVibration()
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
 
